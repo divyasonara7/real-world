@@ -1,10 +1,35 @@
 <template>
-  <nav>
-    <router-link to="/">Home</router-link> |
-    <router-link to="/about">About</router-link>
-  </nav>
+  <Header />
   <router-view />
+  <Footer />
 </template>
+
+<script lang="ts">
+import { computed, defineComponent, handleError, onMounted } from "vue";
+import Header from "./components/header.vue";
+import Footer from "@/components/footer.vue";
+import store from "./store";
+import { UserMutations } from "./store/User/mutation";
+export default defineComponent({
+  components: {
+    Header,
+    Footer,
+  },
+
+  setup() {
+    const getMessage = computed({
+      // getter
+      get() {
+        return store.getters.getAllArticles;
+      },
+      // setter
+      set(newValue) {
+        store.commit(UserMutations.SET_USERNAME, newValue);
+      },
+    });
+  },
+});
+</script>
 
 <style>
 #app {
