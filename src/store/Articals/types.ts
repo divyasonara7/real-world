@@ -20,4 +20,6 @@ export interface Artical {
 
 export interface ArticalState {
   articles: Array<Artical>;
+  article: Array<Artical>;
+  articleComments: Array<Artical>;
 }

@@ -8,6 +8,8 @@ import { actions } from "./actions";
 
 export const state: ArticalState = {
   articles: [],
+  article: [],
+  articleComments: [],
 };
 
 export const artical: Module<ArticalState, RootState> = {

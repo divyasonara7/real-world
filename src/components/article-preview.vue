@@ -16,20 +16,35 @@
         <i class="ion-heart"></i> {{ article.favoritesCount }}
       </button>
     </div>
-    <a href="" class="preview-link">
+    <div
+      @click="router.push({ name: 'article', params: { slug: article.slug } })"
+      class="preview-link"
+    >
       <h1>{{ article.slug }}</h1>
       <p>{{ article.description }}</p>
       <span>Read more...</span>
-    </a>
+    </div>
+    <div class="pull-xs-right">
+      <span
+        v-for="tag in article.tagList"
+        :key="tag"
+        class="tag-pill tag-default tag-outline"
+      >
+        {{ tag }}
+      </span>
+      <span v-if="nonVisibleTagsNumber(article) > 0">
+        ... and {{ nonVisibleTagsNumber(article) }} more.
+      </span>
+    </div>
   </div>
 </template>
 <script lang="ts">
 import store from "@/store";
-import { getters } from "@/store/User/getters";
 import { UserMutations } from "@/store/User/mutation";
 import { computed, defineComponent, onMounted } from "vue";
 import moment from "moment";
-
+import router from "@/router";
+const MAX_VISIBLE_TAGS = 5;
 export default defineComponent({
   setup() {
     onMounted(() => {
@@ -47,9 +62,21 @@ export default defineComponent({
         store.commit(UserMutations.SET_USERNAME, newValue);
       },
     });
+
+    const visibleTags = (article: { tagList: string }) => {
+      return article.tagList.slice(0, MAX_VISIBLE_TAGS);
+    };
+
+    const nonVisibleTagsNumber = (article: { tagList: string }) => {
+      return article.tagList.length - MAX_VISIBLE_TAGS;
+    };
+
     return {
       getAllArticles,
       moment,
+      visibleTags,
+      nonVisibleTagsNumber,
+      router,
     };
   },
 });

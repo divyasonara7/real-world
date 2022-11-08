@@ -20,7 +20,7 @@
           </div>
         </div>
         <div class="col-md-3">
-          <PopularTags />
+          <HomeTags />
         </div>
       </div>
     </div>
@@ -28,13 +28,13 @@
 </template>
 <script lang="ts">
 import { defineComponent, onMounted } from "vue";
-import PopularTags from "@/components/popular-tags.vue";
+import HomeTags from "@/components/home-tags.vue";
 import ArticlePreview from "@/components/article-preview.vue";
 import Banner from "@/components/banner.vue";
 export default defineComponent({
   components: {
     // eslint-disable-next-line vue/no-unused-components
-    PopularTags,
+    HomeTags,
     // eslint-disable-next-line vue/no-unused-components
     ArticlePreview,
     Banner,

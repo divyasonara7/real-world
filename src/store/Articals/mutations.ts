@@ -6,4 +6,11 @@ export const mutations: MutationTree<ArticalState> = {
     // console.log("Articals", payload);
     state.articles = payload;
   },
+  SET_ARTICLE(state, payload) {
+    // console.log("Articals", payload);
+    state.article = payload;
+  },
+  SET_ARTICLE_COMMENTS(state, payload) {
+    state.articleComments = payload.comments;
+  },
 };
