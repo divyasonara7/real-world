@@ -1,6 +1,7 @@
 <!-- eslint-disable vue/multi-word-component-names -->
 <template>
-  <div class="article-page">
+  <Loader v-if="!article"></Loader>
+  <div class="article-page" v-else>
     <div class="banner">
       <div class="container">
         <h1>{{ article?.title }}</h1>
@@ -29,16 +30,15 @@
   </div>
 </template>
 <script lang="ts">
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-ignore
 import ArticleActions from "@/components/article-actions.vue";
 import ArticleComments from "@/components/article-comments.vue";
 import router from "@/router";
 import { useRoute } from "vue-router";
 import { computed, defineComponent, onMounted } from "vue";
 import store from "@/store";
+import Loader from "@/components/Loader.vue";
 export default defineComponent({
-  components: { ArticleComments },
+  components: { ArticleComments, ArticleActions, Loader },
   setup() {
     // const router = useRouter();
     const route = useRoute();

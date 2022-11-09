@@ -1,8 +1,10 @@
 <template>
+  <Loader v-if="!getAllArticles" />
   <div
     class="article-preview"
     v-for="article in getAllArticles"
     :key="article.slug"
+    v-else
   >
     <div class="article-meta">
       <a href="#"><img :src="article.author.image" /></a>
@@ -44,8 +46,12 @@ import { UserMutations } from "@/store/User/mutation";
 import { computed, defineComponent, onMounted } from "vue";
 import moment from "moment";
 import router from "@/router";
+import Loader from "@/components/Loader.vue";
 const MAX_VISIBLE_TAGS = 5;
 export default defineComponent({
+  components: {
+    Loader,
+  },
   setup() {
     onMounted(() => {
       store.dispatch("getAllArticles");
@@ -54,7 +60,6 @@ export default defineComponent({
     const getAllArticles = computed({
       // getter
       get() {
-        console.log("getters", store.getters.getAllArticles.articles);
         return store.getters.getAllArticles.articles;
       },
       // setter

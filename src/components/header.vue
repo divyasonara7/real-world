@@ -10,11 +10,6 @@
         </li>
         <li class="nav-item">
           <a class="nav-link" href="">
-            <i class="ion-compose"></i>&nbsp;New Article
-          </a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="">
             <i class="ion-gear-a"></i>&nbsp;Settings
           </a>
         </li>

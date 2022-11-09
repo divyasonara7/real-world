@@ -1,5 +1,5 @@
 <template>
-  <div class="article-meta">
+  <div class="article-meta" v-if="article">
     <a href=""><img src="http://i.imgur.com/Qr71crq.jpg" /></a>
     <div class="info">
       <a href="" class="author">{{ article?.author?.username }}</a>
@@ -19,7 +19,11 @@
     </button>
   </div>
 </template>
-
+<script lang="ts">
+export default {
+  name: "ArticleActions",
+};
+</script>
 <script lang="ts" setup="props">
 // eslint-disable-next-line vue/no-export-in-script-setup
 import { Artical } from "@/store/Articals/types";

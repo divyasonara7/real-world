@@ -1,7 +1,9 @@
 <template>
   <div>
-    <commentAdd />
-    <commentDisplay :article="article" />
+    <div>
+      <commentAdd />
+      <commentDisplay :article="article" />
+    </div>
   </div>
 </template>
 <script lang="ts">
