@@ -1,5 +1,6 @@
 export interface UserState {
-  name: string;
+  username: string;
   email: string;
-  lastLogin: Date;
+  password: string;
+  errors: [];
 }

@@ -4,6 +4,9 @@ import { UserState } from "./types";
 
 export const getters: GetterTree<UserState, RootState> = {
   getUserInfo(state): string {
-    return `Username: ${state.name}`;
+    return `Username: ${state.username}`;
+  },
+  getUserErrors(state) {
+    return state.errors;
   },
 };

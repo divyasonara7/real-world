@@ -6,9 +6,10 @@ import { mutations } from "./mutation";
 import { actions } from "./actions";
 
 export const state: UserState = {
-  name: "divya",
-  email: "divyasonara@gmail.com",
-  lastLogin: new Date(),
+  username: "",
+  email: "",
+  password: "",
+  errors: [],
 };
 
 export const user: Module<UserState, RootState> = {
