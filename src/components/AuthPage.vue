@@ -11,9 +11,7 @@
             </router-link>
             <router-link v-else to="/signup"> Need an account? </router-link>
           </p>
-
-          {{ errors }}
-          <!-- <common-errors-list :errors="errors" /> -->
+          <CommonErrors :errors="errors" />
 
           <form @submit.prevent="authAction">
             <fieldset>
@@ -65,19 +63,20 @@ import { computed } from "@vue/runtime-core";
 import { ref } from "vue";
 import store from "@/store";
 import router from "@/router";
+import CommonErrors from "@/components/common-errors.vue";
 export default {
   name: "AuthPage",
-
+  components: {
+    CommonErrors,
+  },
   props: ["mode"],
-  setup(props) {
+  setup(props: any) {
     const username = ref();
     const email = ref();
     const password = ref();
-    const errors = ref();
     const isRegisterMode = computed(() => {
       return props.mode === "Register" ? true : false;
     });
-
     function isArrayOf<T>(typeLike: T, arr: any): boolean {
       return (
         !!arr &&
@@ -90,26 +89,21 @@ export default {
       return isArrayOf("string", arr);
     }
 
+    const errors = computed(() => {
+      return store.getters.getUserErrors.errors;
+    });
+
     const authAction = async () => {
-      try {
-        isRegisterMode
-          ? await store.dispatch("userRegister", {
-              username: username.value,
-              email: email.value,
-              password: password.value,
-            })
-          : await store.dispatch("userLogin", {
-              email: email.value,
-              password: password.value,
-            });
-        router.push("/");
-      } catch (e) {
-        if (isArrayOfStrings(e)) {
-          errors.value = e;
-        } else {
-          throw e;
-        }
-      }
+      isRegisterMode.value
+        ? await store.dispatch("userRegister", {
+            username: username.value,
+            email: email.value,
+            password: password.value,
+          })
+        : await store.dispatch("userLogin", {
+            email: email.value,
+            password: password.value,
+          });
     };
     return {
       isRegisterMode,
@@ -118,9 +112,11 @@ export default {
       password,
       authAction,
       errors,
+      isArrayOfStrings,
     };
   },
 };
+
 export enum AuthPageMode {
   Register = "Register",
   Login = "Login",
