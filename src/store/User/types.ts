@@ -3,4 +3,5 @@ export interface UserState {
   email: string;
   password: string;
   errors: [];
+  image: string;
 }

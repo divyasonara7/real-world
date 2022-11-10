@@ -9,7 +9,7 @@
 export default {
   name: "CommonErrors",
   props: ["errors"],
-  setup(props) {
+  setup(props: any) {
     const entries = props.errors ? Object.entries(props.errors) : [];
     const data = entries.map((key, val) => {
       return key;

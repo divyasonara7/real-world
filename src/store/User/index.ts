@@ -10,6 +10,7 @@ export const state: UserState = {
   email: "",
   password: "",
   errors: [],
+  image: "",
 };
 
 export const user: Module<UserState, RootState> = {
