@@ -12,8 +12,9 @@
             <router-link v-else to="/signup"> Need an account? </router-link>
           </p>
           <CommonErrors :errors="errors" />
+          <Loader v-if="isLoading" />
 
-          <form @submit.prevent="authAction">
+          <form @submit.prevent="authAction" v-else>
             <fieldset>
               <fieldset v-if="isRegisterMode" class="form-group">
                 <input
@@ -43,12 +44,6 @@
                 />
               </fieldset>
             </fieldset>
-            <!-- <common-loader
-              v-if="isLoading"
-              :size="5"
-              :margin="0"
-              class="pull-xs-right"
-            /> -->
             <button class="btn btn-lg btn-primary pull-xs-right">
               {{ isRegisterMode ? "Sign up" : "Sign in" }}
             </button>
@@ -62,18 +57,21 @@
 import { computed } from "@vue/runtime-core";
 import { ref } from "vue";
 import store from "@/store";
-import router from "@/router";
 import CommonErrors from "@/components/common-errors.vue";
+import Loader from "./Loader.vue";
+import { VueCookies } from "vue-cookies";
 export default {
   name: "AuthPage",
   components: {
     CommonErrors,
+    Loader,
   },
   props: ["mode"],
   setup(props: any) {
     const username = ref();
     const email = ref();
     const password = ref();
+    const isLoading = ref(false);
     const isRegisterMode = computed(() => {
       return props.mode === "Register" ? true : false;
     });
@@ -94,6 +92,7 @@ export default {
     });
 
     const authAction = async () => {
+      isLoading.value = true;
       isRegisterMode.value
         ? await store.dispatch("userRegister", {
             username: username.value,
@@ -104,6 +103,7 @@ export default {
             email: email.value,
             password: password.value,
           });
+      isLoading.value = false;
     };
     return {
       isRegisterMode,
@@ -113,6 +113,7 @@ export default {
       authAction,
       errors,
       isArrayOfStrings,
+      isLoading,
     };
   },
 };
