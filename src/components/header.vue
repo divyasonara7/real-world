@@ -7,6 +7,11 @@
         <li class="nav-item">
           <router-link to="/" class="navbar-brand">Home</router-link>
         </li>
+        <li class="nav-item" v-if="store.getters.isLogin">
+          <router-link to="/add" class="nav-link">
+            <i class="ion-compose">New Article</i>
+          </router-link>
+        </li>
         <li class="nav-item" v-if="store.getters.isLogin" @click="logout">
           <router-link to="/signin" class="nav-link">Sign Out</router-link>
         </li>
