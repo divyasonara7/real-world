@@ -1,26 +1,17 @@
 <template>
-  <Header :isLogin="isLogin" />
-  <router-view />
+  <Header />
+  <router-view :key="$route.fullPath" />
   <Footer />
 </template>
 
 <script lang="ts">
-import { computed, defineComponent } from "vue";
+import { defineComponent } from "vue";
 import Header from "./components/header.vue";
 import Footer from "@/components/footer.vue";
 export default defineComponent({
   components: {
     Header,
     Footer,
-  },
-  setup() {
-    const isLogin = computed(() => {
-      return localStorage.getItem("username") === null ? false : true;
-    });
-
-    return {
-      isLogin,
-    };
   },
 });
 </script>

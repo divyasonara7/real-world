@@ -9,4 +9,8 @@ export const getters: GetterTree<UserState, RootState> = {
   getUserErrors(state) {
     return state.errors;
   },
+
+  isLogin(state) {
+    return state.isLogin;
+  },
 };

@@ -2,21 +2,15 @@
 <template>
   <nav class="navbar navbar-light">
     <div class="container">
-      <a class="navbar-brand" href="index.html">conduit</a>
+      <router-link to="/" class="navbar-brand">conduit</router-link>
       <ul class="nav navbar-nav pull-xs-right">
         <li class="nav-item">
-          <!-- Add "active" class when you're on that page" -->
-          <a class="nav-link active" href="">Home</a>
+          <router-link to="/" class="navbar-brand">Home</router-link>
         </li>
-        <li class="nav-item">
-          <a class="nav-link" href="">
-            <i class="ion-gear-a"></i>&nbsp;Settings
-          </a>
-        </li>
-        <li class="nav-item" v-if="isLogin" @click="auth.logout()">
+        <li class="nav-item" v-if="store.getters.isLogin" @click="logout">
           <router-link to="/signin" class="nav-link">Sign Out</router-link>
         </li>
-        <li class="nav-item" v-else>
+        <li class="nav-item" v-if="!store.getters.isLogin">
           <router-link to="/signin" class="nav-link">Sign in </router-link>
         </li>
       </ul>
@@ -24,22 +18,10 @@
   </nav>
 </template>
 <script lang="ts" setup>
-import auth from "@/utils/auth";
-import { watch } from "@vue/runtime-core";
-import { defineProps } from "vue";
-const props = defineProps<{
-  isLogin: boolean;
-}>();
-// watch(
-//   () => props.isLogin,
-//   (first, second) => {
-//     console.log(
-//       "Watch props.selected function called with args:",
-//       first,
-//       second
-//     );
-//   }
-// );
+import store from "@/store";
+function logout() {
+  store.dispatch("userLogout");
+}
 </script>
 <script lang="ts">
 export default {

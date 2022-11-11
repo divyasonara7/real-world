@@ -11,6 +11,7 @@ export const state: UserState = {
   password: "",
   errors: [],
   image: "",
+  isLogin: false,
 };
 
 export const user: Module<UserState, RootState> = {

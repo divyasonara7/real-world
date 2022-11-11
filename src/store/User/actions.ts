@@ -11,8 +11,10 @@ export const actions: ActionTree<UserState, RootState> = {
     await axios
       .post("/users/login", { user: params })
       .then((res) => {
-        auth.setLocalStorage(res?.data?.user);
-        res?.data?.user ? router.push("/") : false;
+        if (res?.data?.user) {
+          context.state.isLogin = true;
+          router.push("/");
+        }
       })
       .catch((e) => {
         context.commit("SET_USER_ERROR", e?.response?.data);
@@ -22,11 +24,16 @@ export const actions: ActionTree<UserState, RootState> = {
     await axios
       .post("/users", { user: params })
       .then((res) => {
-        auth.setLocalStorage(res?.data?.user);
-        res?.data?.user ? router.push("/") : false;
+        if (res?.data?.user) {
+          context.state.isLogin = true;
+          router.push("/");
+        }
       })
       .catch((e) => {
         context.commit("SET_USER_ERROR", e?.response?.data);
       });
+  },
+  userLogout(context) {
+    context.state.isLogin = false;
   },
 };

@@ -4,4 +4,5 @@ export interface UserState {
   password: string;
   errors: [];
   image: string;
+  isLogin: boolean;
 }
