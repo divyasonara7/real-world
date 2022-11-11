@@ -59,7 +59,6 @@ import { ref } from "vue";
 import store from "@/store";
 import CommonErrors from "@/components/common-errors.vue";
 import Loader from "./Loader.vue";
-import { VueCookies } from "vue-cookies";
 export default {
   name: "AuthPage",
   components: {
