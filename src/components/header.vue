@@ -13,6 +13,16 @@
         <li class="nav-item" v-if="!store.getters.isLogin">
           <router-link to="/signin" class="nav-link">Sign in </router-link>
         </li>
+        <li class="nav-item" v-if="store.getters.getUserName != ''">
+          <p class="nav-link">
+            <img
+              v-if="store.getters.getUserImage"
+              :src="store.getters.getUserImage"
+              class="user-pic"
+            />
+            {{ store.getters.getUserName }}
+          </p>
+        </li>
       </ul>
     </div>
   </nav>

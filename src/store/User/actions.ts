@@ -13,6 +13,8 @@ export const actions: ActionTree<UserState, RootState> = {
       .then((res) => {
         if (res?.data?.user) {
           context.state.isLogin = true;
+          context.commit("SET_USERNAME", res.data.user.username);
+          context.commit("SET_USER_IMAGE", res.data.user.image);
           router.push("/");
         }
       })
@@ -26,6 +28,8 @@ export const actions: ActionTree<UserState, RootState> = {
       .then((res) => {
         if (res?.data?.user) {
           context.state.isLogin = true;
+          context.commit("SET_USERNAME", res.data.user.username);
+          context.commit("SET_USER_IMAGE", res.data.user.image);
           router.push("/");
         }
       })
@@ -34,6 +38,8 @@ export const actions: ActionTree<UserState, RootState> = {
       });
   },
   userLogout(context) {
+    context.commit("SET_USERNAME", null);
+    context.commit("SET_USER_IMAGE", null);
     context.state.isLogin = false;
   },
 };

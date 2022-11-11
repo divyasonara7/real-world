@@ -4,6 +4,7 @@ import { UserState } from "./types";
 export enum UserMutations {
   SET_USERNAME = "SET_USERNAME",
   SET_USER_ERROR = "SET_USER_ERROR",
+  SET_USER_IMAGE = "SET_USER_IMAGE",
 }
 export const mutations: MutationTree<UserState> = {
   [UserMutations.SET_USERNAME](state, payload: string) {
@@ -11,5 +12,8 @@ export const mutations: MutationTree<UserState> = {
   },
   [UserMutations.SET_USER_ERROR](state, payload) {
     state.errors = payload;
+  },
+  [UserMutations.SET_USER_IMAGE](state, payload) {
+    state.image = payload;
   },
 };

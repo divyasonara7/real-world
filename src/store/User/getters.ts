@@ -3,8 +3,8 @@ import { RootState } from "../types";
 import { UserState } from "./types";
 
 export const getters: GetterTree<UserState, RootState> = {
-  getUserInfo(state): string {
-    return `Username: ${state.username}`;
+  getUserName(state): string {
+    return state.username;
   },
   getUserErrors(state) {
     return state.errors;
@@ -12,5 +12,8 @@ export const getters: GetterTree<UserState, RootState> = {
 
   isLogin(state) {
     return state.isLogin;
+  },
+  getUserImage(state) {
+    return state.image;
   },
 };
