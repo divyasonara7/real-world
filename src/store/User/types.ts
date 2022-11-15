@@ -5,4 +5,5 @@ export interface UserState {
   errors: [];
   image: string;
   isLogin: boolean;
+  token: string;
 }

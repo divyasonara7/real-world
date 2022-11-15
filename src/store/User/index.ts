@@ -12,6 +12,7 @@ export const state: UserState = {
   errors: [],
   image: "",
   isLogin: false,
+  token: "",
 };
 
 export const user: Module<UserState, RootState> = {

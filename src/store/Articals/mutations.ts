@@ -13,4 +13,7 @@ export const mutations: MutationTree<ArticalState> = {
   SET_ARTICLE_COMMENTS(state, payload) {
     state.articleComments = payload.comments;
   },
+  SET_ARTICLE_ERRORS(state, payload) {
+    state.Errors = payload.errors;
+  },
 };

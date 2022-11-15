@@ -1,10 +1,22 @@
 import router from "@/router";
-import axios from "axios";
+import axios, { AxiosRequestConfig } from "axios";
 import { ActionTree } from "vuex";
 import { RootState } from "../types";
 import { UserState } from "./types";
 import auth from "@/utils/auth";
 axios.defaults.baseURL = process.env.VUE_APP_REAL_WORLD_API_URL;
+axios.defaults.headers.get.Accepts = "application/json";
+axios.defaults.headers.common["Access-Control-Allow-Origin"] = "*";
+
+const AuthInterceptor = (config: AxiosRequestConfig): AxiosRequestConfig => {
+  const accessToken = localStorage.getItem("token");
+  if (accessToken && config && config.headers) {
+    config.headers.Authorization = `Token ${accessToken}`;
+  }
+  return config;
+};
+
+axios.interceptors.request.use(AuthInterceptor);
 
 export const actions: ActionTree<UserState, RootState> = {
   async userLogin(context, params) {
@@ -12,9 +24,7 @@ export const actions: ActionTree<UserState, RootState> = {
       .post("/users/login", { user: params })
       .then((res) => {
         if (res?.data?.user) {
-          context.state.isLogin = true;
-          context.commit("SET_USERNAME", res.data.user.username);
-          context.commit("SET_USER_IMAGE", res.data.user.image);
+          auth.setLocalStorage(res.data.user);
           router.push("/");
         }
       })
@@ -27,9 +37,7 @@ export const actions: ActionTree<UserState, RootState> = {
       .post("/users", { user: params })
       .then((res) => {
         if (res?.data?.user) {
-          context.state.isLogin = true;
-          context.commit("SET_USERNAME", res.data.user.username);
-          context.commit("SET_USER_IMAGE", res.data.user.image);
+          auth.setLocalStorage(res.data.user);
           router.push("/");
         }
       })
@@ -38,8 +46,6 @@ export const actions: ActionTree<UserState, RootState> = {
       });
   },
   userLogout(context) {
-    context.commit("SET_USERNAME", null);
-    context.commit("SET_USER_IMAGE", null);
-    context.state.isLogin = false;
+    auth.clearLocalStorage();
   },
 };

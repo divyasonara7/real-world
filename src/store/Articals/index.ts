@@ -10,6 +10,7 @@ export const state: ArticalState = {
   articles: [],
   article: [],
   articleComments: [],
+  Errors: [],
 };
 
 export const artical: Module<ArticalState, RootState> = {

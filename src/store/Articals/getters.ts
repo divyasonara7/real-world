@@ -12,4 +12,7 @@ export const getters: GetterTree<ArticalState, RootState> = {
   getArticleComments(state) {
     return state.articleComments;
   },
+  getArticleErrors(state) {
+    return state.Errors;
+  },
 };

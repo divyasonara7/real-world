@@ -3,17 +3,17 @@ import { RootState } from "../types";
 import { UserState } from "./types";
 
 export const getters: GetterTree<UserState, RootState> = {
-  getUserName(state): string {
-    return state.username;
+  getUserName(): string | null {
+    return localStorage.getItem("username");
   },
   getUserErrors(state) {
     return state.errors;
   },
 
-  isLogin(state) {
-    return state.isLogin;
+  isLogin() {
+    return localStorage.getItem("username") === null ? false : true;
   },
-  getUserImage(state) {
-    return state.image;
+  getUserImage() {
+    return localStorage.getItem("image");
   },
 };

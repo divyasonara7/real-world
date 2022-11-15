@@ -1,8 +1,9 @@
+import router from "@/router";
+import { notifyErrors, notifySuccess } from "@/utils/notification";
 import axios from "axios";
 import { ActionTree } from "vuex";
 import { RootState } from "../types";
 import { ArticalState } from "./types";
-
 axios.defaults.baseURL = process.env.VUE_APP_REAL_WORLD_API_URL;
 
 export const actions: ActionTree<ArticalState, RootState> = {
@@ -20,5 +21,25 @@ export const actions: ActionTree<ArticalState, RootState> = {
     axios.get(`/articles/${slug}/comments`).then((res) => {
       context.commit("SET_ARTICLE_COMMENTS", res.data);
     });
+  },
+  async AddArticle(context, payload) {
+    await axios
+      .post(`/articles`, {
+        article: payload,
+      })
+      .then((res) => {
+        if (res.data.article) {
+          notifySuccess("Article created successfully, redirecting...");
+          router.push({
+            name: "article",
+            params: { slug: res.data.article.slug },
+          });
+        } else {
+          notifyErrors(["Something went to wrong"]);
+        }
+      })
+      .catch((e) => {
+        context.commit("SET_ARTICLE_ERRORS", e?.response?.data);
+      });
   },
 };

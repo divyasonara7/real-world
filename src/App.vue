@@ -2,6 +2,7 @@
   <Header />
   <router-view :key="$route.fullPath" />
   <Footer />
+  <notifications />
 </template>
 
 <script lang="ts">
