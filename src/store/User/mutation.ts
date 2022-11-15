@@ -6,6 +6,7 @@ export enum UserMutations {
   SET_USER_ERROR = "SET_USER_ERROR",
   SET_USER_IMAGE = "SET_USER_IMAGE",
   SET_TOKEN = "SET_TOKEN",
+  SET_CURRENT_USER = "SET_CURRENT_USER",
 }
 export const mutations: MutationTree<UserState> = {
   [UserMutations.SET_USERNAME](state, payload: string) {

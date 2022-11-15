@@ -16,4 +16,7 @@ export const getters: GetterTree<UserState, RootState> = {
   getUserImage() {
     return localStorage.getItem("image");
   },
+  getCurrentUser() {
+    return localStorage.getItem("user");
+  },
 };

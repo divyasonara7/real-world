@@ -1,36 +1,52 @@
 <template>
-  <div class="article-meta" v-if="article">
-    <a href=""><img src="http://i.imgur.com/Qr71crq.jpg" /></a>
-    <div class="info">
-      <a href="" class="author">{{ article?.author?.username }}</a>
-      <span class="date">{{
-        moment(article?.createdAt).format("MMM Do YYYY")
-      }}</span>
-    </div>
-    <button class="btn btn-sm btn-outline-secondary">
-      <i class="ion-plus-round"></i>
-      &nbsp; Follow {{ article?.author?.username }}
-      <span class="counter">(10)</span>
-    </button>
-    &nbsp;&nbsp;
-    <button class="btn btn-sm btn-outline-primary">
-      <i class="ion-heart"></i>
-      &nbsp; Favorite Post <span class="counter">(29)</span>
-    </button>
-  </div>
+  <ArticleMeta :article="article">
+    <template v-if="!isMyArticle">
+      <ProfileFollowButton
+        :username="article.author.username"
+        :following="article.author.following"
+      />
+      &nbsp;&nbsp;
+      <ArticleFavoriteButton
+        :favorited="article.favorited"
+        :favorites-count="article.favoritesCount"
+        :slug="article.slug"
+        :is-with-description="true"
+      />
+    </template>
+    <template v-else>
+      <router-link to="/" class="btn btn-outline-secondary btn-sm">
+        <i class="ion-edit"></i>
+        Edit Article
+      </router-link>
+      &nbsp;&nbsp;
+      <button class="btn btn-outline-danger btn-sm" @click="deleteArticle">
+        <i class="ion-trash-a"></i>
+        Delete Article
+      </button>
+    </template>
+  </ArticleMeta>
 </template>
-<script lang="ts">
-export default {
-  name: "ArticleActions",
-};
-</script>
-<script lang="ts" setup="props">
-// eslint-disable-next-line vue/no-export-in-script-setup
+
+<script lang="ts" setup>
 import { Artical } from "@/store/Articals/types";
-import { defineProps } from "vue";
-import moment from "moment";
-// eslint-disable-next-line vue/no-export-in-script-setup
+import { computed, defineProps } from "vue";
+import ArticleMeta from "@/components/article-meta.vue";
+import store from "@/store";
+import { artical } from "@/store/Articals";
+import ProfileFollowButton from "@/components/profile-follow-button.vue";
+import ArticleFavoriteButton from "@/components/article-favorite-button.vue";
+
 const props = defineProps<{
   article: Artical;
 }>();
+
+const currentUser = computed(() => JSON.parse(store.getters.getCurrentUser));
+const isMyArticle = computed(() => {
+  return props.article.author.username === currentUser.value.username
+    ? true
+    : false;
+});
+const deleteArticle = () => {
+  console.log("Article deleted successfully");
+};
 </script>

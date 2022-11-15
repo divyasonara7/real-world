@@ -1,12 +1,8 @@
-interface UserResponse {
-  username: string;
-  image: string;
-  token: string;
-}
-function setLocalStorage(user: UserResponse) {
+function setLocalStorage(user: any) {
   localStorage.setItem("username", user.username);
   localStorage.setItem("image", user.image);
   localStorage.setItem("token", user.token);
+  localStorage.setItem("user", JSON.stringify(user));
 }
 
 function isLogin() {
