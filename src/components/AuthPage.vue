@@ -74,17 +74,6 @@ export default {
     const isRegisterMode = computed(() => {
       return props.mode === "Register" ? true : false;
     });
-    function isArrayOf<T>(typeLike: T, arr: any): boolean {
-      return (
-        !!arr &&
-        arr instanceof Array &&
-        (arr.length === 0 || arr.every((v) => typeof v === typeof typeLike))
-      );
-    }
-
-    function isArrayOfStrings(arr: any): boolean {
-      return isArrayOf("string", arr);
-    }
 
     const errors = computed(() => {
       return store.getters.getUserErrors.errors;
@@ -111,7 +100,6 @@ export default {
       password,
       authAction,
       errors,
-      isArrayOfStrings,
       isLoading,
     };
   },

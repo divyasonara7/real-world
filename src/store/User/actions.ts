@@ -4,6 +4,7 @@ import { ActionTree } from "vuex";
 import { RootState } from "../types";
 import { UserState } from "./types";
 import auth from "@/utils/auth";
+import { notifyErrors } from "@/utils/notification";
 axios.defaults.baseURL = process.env.VUE_APP_REAL_WORLD_API_URL;
 axios.defaults.headers.get.Accepts = "application/json";
 axios.defaults.headers.common["Access-Control-Allow-Origin"] = "*";
@@ -29,6 +30,7 @@ export const actions: ActionTree<UserState, RootState> = {
         }
       })
       .catch((e) => {
+        notifyErrors(["Something went wrong! Please try again later."]);
         context.commit("SET_USER_ERROR", e?.response?.data);
       });
   },
@@ -42,6 +44,7 @@ export const actions: ActionTree<UserState, RootState> = {
         }
       })
       .catch((e) => {
+        notifyErrors(["Something went wrong! Please try again later."]);
         context.commit("SET_USER_ERROR", e?.response?.data);
       });
   },
