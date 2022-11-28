@@ -40,9 +40,9 @@ const router = createRouter({
 });
 
 router.beforeEach(async (to) => {
-  if (!auth.isLogin() && to.name !== "signin") {
-    return { name: "signin" };
-  }
+  // if (!auth.isLogin() && to.name !== "signin") {
+  //   return { name: "signin" };
+  // }
 });
 
 export default router;
